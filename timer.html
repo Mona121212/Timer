@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TIMER</title>
+  <style>
+    #timer {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-right: 5px;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="timer">00:00:00</div>
+  <button onclick="startTimer()">START</button>
+  <button onclick="pauseTimer()">PAUSE</button>
+  <button onclick="resetTimer()">RESET</button>
+
+  <script>
+    let seconds = 0;
+    let interval = null;
+
+    function updateDisplay() {
+      let hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+      let mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+      let secs = String(seconds % 60).padStart(2, '0');
+      document.getElementById("timer").textContent = `${hrs}:${mins}:${secs}`;
+    }
+
+    function startTimer() {
+      if (!interval) {
+        interval = setInterval(() => {
+          seconds++;
+          updateDisplay();
+        }, 1000);
+      }
+    }
+
+    function pauseTimer() {
+      clearInterval(interval);
+      interval = null;
+    }
+
+    function resetTimer() {
+      pauseTimer();
+      seconds = 0;
+      updateDisplay();
+    }
+  </script>
+
+</body>
+</html>
