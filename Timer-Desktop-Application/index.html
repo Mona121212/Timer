@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Floating Timer</title>
+  <style>
+    body {
+      margin: 0;
+      background: #373435;
+      color: #F5F5DC;
+      font-family: sans-serif;
+      text-align: center;
+      user-select: none;
+      -webkit-app-region: drag; /* 整个窗口可拖拽 */
+    }
+    #time {
+      font-size: 36px;
+      margin: 15px 0;
+      -webkit-app-region: no-drag; /* 数字可选，不拖拽 */
+    }
+    button {
+      margin: 10px 5px 10px 5px;
+      padding: 5px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      -webkit-app-region: no-drag; /* 按钮可点击 */
+    }
+  </style>
+</head>
+<body>
+  <button id="startBtn">Start</button>
+<button id="pauseBtn">Pause</button>
+<button id="resetBtn">Reset</button>
+<div id="time">0</div>
+
+<script>
+  const timeEl = document.getElementById('time');
+  const startBtn = document.getElementById('startBtn');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  startBtn.addEventListener('click', () => window.timerAPI.start());
+  pauseBtn.addEventListener('click', () => window.timerAPI.pause());
+  resetBtn.addEventListener('click', () => window.timerAPI.reset());
+
+  window.addEventListener('timer-update', e => {
+    timeEl.textContent = e.detail;
+  });
+</script>
+
+</body>
+</html>
